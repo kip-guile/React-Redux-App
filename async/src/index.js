@@ -2,26 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import * as reducers from './state/reducers';
-import Counter from './components/counter';
+import App from './App';
+import thunk from 'redux-thunk';
 
 const monsterReducer = combineReducers({
     // the key is the real name for the slice
     count: reducers.countReducer,
+    quotes: reducers.reducer,
     // todoList: reducers.todoListReducer
   });
   
   // feed the createStore the combined reducer (5)
   const store = createStore(
     monsterReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(thunk)
   );
 
 ReactDOM.render(<>
   <Provider store={store}>
-  <Counter />
+  <App />
   </Provider>
 </>, document.getElementById('root'));
 

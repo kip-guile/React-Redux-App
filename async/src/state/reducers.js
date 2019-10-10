@@ -19,3 +19,13 @@ export function countReducer(count = initialValueCount, action) {
       return count;
   }
 }
+
+const initialState = [];
+export function reducer(state = initialState, action){
+  switch(action.type){
+    case types.ADD_DATA:
+      return action.payload;
+    default:
+      return state;
+  }
+}
